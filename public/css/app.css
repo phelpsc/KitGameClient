@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'pxplus_ibm_cgaregular';
+    src: url('webfontkit/pxplus_ibm_cga-webfont.woff2') format('woff2'),
+         url('webfontkit/pxplus_ibm_cga-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+  font-family: 'pxplus_ibm_cgaregular';
+  background-color: #000;
+  color: #ddd;
+}
+
+.focus-modal {
+  display: none;
+}
