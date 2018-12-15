@@ -33,7 +33,20 @@ var app = {
         };
 
         self.socket.onmessage = function (event) {
-          self.printServerMessage(event.data);
+          try {
+            var server_message = JSON.parse(event.data)
+
+            //Todo: Evaluate server_message[0] for type
+            //Todo: Evaluate serve_message[2] for prompt text
+
+            server_message[1].forEach(function(msg) {
+              self.printServerMessage(msg)
+            });
+
+          } catch(data_error) {
+            console.log("Error parsing websocket server message.");
+            console.log()
+          }
         };
 
         self.socket.onclose = function (event) {
@@ -68,7 +81,6 @@ var app = {
     //initialize output history array
     for (var i=0; i<self.historyLineCount; i++) {
       self.history[i] = " ";
-      console.log(self.history[i]);
     }
 
     self.printServerMessage("Welcome to KitGameClient.");
@@ -79,13 +91,11 @@ var app = {
     var self = this;
     document.getElementById('app').addEventListener('keypress', function(e) {
       (e.key != "Enter") ? self.command += e.key : self.runCommand();
-      console.log(self.command);
       self.renderPrompt();
     });
     document.getElementById('app').addEventListener('keydown', function(e) {
       if (e.key == "Backspace" && self.command != "") {
         self.command = self.command.slice(0, self.command.length - 1);
-        console.log(self.command);
         self.renderPrompt();
       };
     });
